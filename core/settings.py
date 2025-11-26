@@ -56,10 +56,55 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+# PostgreSQL database konfiguratsiyasi
+# Environment variable'lardan o'qiladi, yo'q bo'lsa default qiymatlar ishlatiladi
+def get_db_config():
+    """PostgreSQL ulanish parametrlarini environment'dan o'qiydi yoki default qaytaradi."""
+    db_name = os.getenv('POSTGRES_DB', 'app_db').strip()
+    db_user = os.getenv('POSTGRES_USER', 'app_user').strip()
+    db_password = os.getenv('POSTGRES_PASSWORD', 'app_password').strip()
+    db_host = os.getenv('POSTGRES_HOST', 'localhost').strip()
+    db_port = os.getenv('POSTGRES_PORT', '5432').strip()
+    
+    # Minimal validatsiya: bo'sh string emasligini tekshirish
+    if not db_name:
+        db_name = 'app_db'
+    if not db_user:
+        db_user = 'app_user'
+    if not db_password:
+        db_password = 'app_password'
+    if not db_host:
+        db_host = 'localhost'
+    if not db_port:
+        db_port = '5432'
+    
+    # Port raqam ekanligini tekshirish
+    try:
+        db_port = int(db_port)
+    except ValueError:
+        db_port = 5432
+    
+    return {
+        'NAME': db_name,
+        'USER': db_user,
+        'PASSWORD': db_password,
+        'HOST': db_host,
+        'PORT': db_port,
+    }
+
+db_config = get_db_config()
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': db_config['NAME'],
+        'USER': db_config['USER'],
+        'PASSWORD': db_config['PASSWORD'],
+        'HOST': db_config['HOST'],
+        'PORT': db_config['PORT'],
+        'OPTIONS': {
+            'connect_timeout': 10,
+        },
     }
 }
 
