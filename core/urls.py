@@ -6,6 +6,7 @@ from drf_yasg.generators import OpenAPISchemaGenerator
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+from core.views import api_root
 
 class BothHttpAndHttpsSchemaGenerator(OpenAPISchemaGenerator):
     def get_schema(self, request=None, public=False):
@@ -28,6 +29,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('', api_root, name='api-root'),
     path('admin/', admin.site.urls),
     path('api/v1/auth/', include('apps.accounts.api.auth.urls')),
     path(
