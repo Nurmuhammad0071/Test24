@@ -3,3 +3,4 @@ djangorestframework
 drf-yasg
 django-jazzmin
 python-dotenv
+djangorestframework-simplejwt

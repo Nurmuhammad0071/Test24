@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.generators import OpenAPISchemaGenerator
 from drf_yasg.views import get_schema_view
@@ -29,6 +29,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/auth/', include('apps.accounts.api.auth.urls')),
     path(
         "api/v1/docs.json",
         schema_view.without_ui(cache_timeout=0),
