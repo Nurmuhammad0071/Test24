@@ -1,0 +1,25 @@
+[Unit]
+Description=Test24 Backend Gunicorn Service
+After=network.target postgresql.service
+
+[Service]
+Type=notify
+User=root
+Group=root
+WorkingDirectory=/opt/test24_backend
+Environment="PATH=/opt/test24_backend/venv/bin"
+ExecStart=/opt/test24_backend/venv/bin/gunicorn \
+    --bind 0.0.0.0:8001 \
+    --workers 3 \
+    --timeout 120 \
+    --access-logfile - \
+    --error-logfile - \
+    --log-level info \
+    core.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+
