@@ -1,0 +1,5 @@
+django
+djangorestframework
+drf-yasg
+django-jazzmin
+python-dotenv
