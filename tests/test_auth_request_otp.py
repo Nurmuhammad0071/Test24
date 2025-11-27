@@ -38,3 +38,4 @@ class RequestOtpAPITests(APITestCase):
         session = OTPVerificationSession.objects.get(id=response.data["session"])
         self.assertEqual(session.otp_code, "0571")
 
+

@@ -98,3 +98,4 @@ class LoginAPITests(APITestCase):
         self.assertEqual(login_resp.status_code, status.HTTP_200_OK)
         self.assertIn("access", login_resp.data)
 
+

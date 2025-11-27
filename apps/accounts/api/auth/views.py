@@ -103,6 +103,7 @@ class RequestOTPView(APIView):
         operation_description="Creates or reuses an OTP session and sends a 4-digit code to the given phone number.",
         request_body=RequestOtpSerializer,
         responses={200: RequestOtpResponseSerializer},
+        tags=['Auth OTP'],
     )
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -128,6 +129,7 @@ class SubmitOTPView(APIView):
         operation_description="Validates the submitted OTP for the provided session.",
         request_body=SubmitOtpSerializer,
         responses={200: SubmitOtpResponseSerializer},
+        tags=['Auth OTP'],
     )
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -157,6 +159,7 @@ class LoginView(APIView):
         operation_description="Exchanges a verified OTP session for JWT access and refresh tokens.",
         request_body=LoginSerializer,
         responses={200: LoginResponseSerializer},
+        tags=['Auth OTP'],
     )
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
