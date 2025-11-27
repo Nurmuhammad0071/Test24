@@ -27,7 +27,7 @@ class SubmitOtpSerializer(serializers.Serializer):
 
 
 class SessionDataSerializer(serializers.Serializer):
-    PLATFORM_CHOICES = ("ANDROID", "IOS", "WEB")
+    PLATFORM_CHOICES = ("ANDROID", "IOS", "WEB", "HarmonyOS")
 
     platform = serializers.ChoiceField(choices=PLATFORM_CHOICES, required=False)
     device_os = serializers.CharField(required=False, allow_blank=True)
